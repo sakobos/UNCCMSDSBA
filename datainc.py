@@ -55,6 +55,6 @@ def ingest_and_clean_data():
     print(f"Data Ingestion Complete. Shape: {kepler_clean.shape}")
     
     # Creating extra copy of the original dataframe for future Robovetter Eval
-    robovetter_df = kepler_clean.copy()
+    robovetter_df = kepler_df.copy()
 
     return kepler_clean, robovetter_df
