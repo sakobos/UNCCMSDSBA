@@ -53,5 +53,8 @@ def ingest_and_clean_data():
     kepler_clean = kepler_trim.dropna().copy()
 
     print(f"Data Ingestion Complete. Shape: {kepler_clean.shape}")
+    
+    # Creating extra copy of the original dataframe for future Robovetter Eval
+    robovetter_df = kepler_clean.copy()
 
-    return kepler_clean
+    return kepler_clean, robovetter_df
