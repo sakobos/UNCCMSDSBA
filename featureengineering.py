@@ -42,12 +42,18 @@ def run_feature_pipeline(df):
         error_range = df_eng[f'{col}_err1'] - df_eng[f'{col}_err2']
         df_eng[f'{col}_total_err_ratio'] = error_range / (df_eng[col] + epsilon)
 
-    # Replace any Infs created by logs/division with NaN and drop them
+    # Replace Posisble Infinities from the logs/divison w/ NaN & Drop
     df_eng = df_eng.replace([np.inf, -np.inf], np.nan).dropna()
-
-    # Drop all original error columns
-    cols_to_drop = [c for c in df_eng.columns if '_err' in c and '_total_err_ratio' not in c]
-    df_final = df_eng.drop(columns=cols_to_drop)
+    
+    # Drop Original Error Columns
+    err_cols = [c for c in df_eng.columns if '_err' in c and '_total_err_ratio' not in c]
+    
+    # Drop Features Used to Engineer Features
+    base_features_to_drop = ['koi_prad', 'koi_teq', 'koi_insol', 'koi_slogg', 'koi_srad']
+    
+    # Combine Lists and Drop
+    final_drop_list = err_cols + base_features_to_drop
+    df_final = df_eng.drop(columns=final_drop_list, errors='ignore')
 
     return df_final
 
