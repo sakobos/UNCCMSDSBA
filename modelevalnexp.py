@@ -48,5 +48,5 @@ def shap_exp(pipeline, X_test):
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X_df)
     plt.figure(figsize=(10, 6))
-    shap.summary_plot(shap_values[1], X_df, plot_type="dot")
+    shap.summary_plot(shap_values[:, :, 1], X_df, plot_type="dot")
 
