@@ -9,11 +9,21 @@ Original file is located at
 
 import pandas as pd
 
-def run_final_cleaning(df):
     kepler_final = df.copy()
-    # Columns to Drop Based on Multicollinearity/VIF
-    cols_to_drop = ['koi_impact','log_energy_consistency','koi_kepmag',
+    # Columns to Drop from Multicollinearity/VIF & Low Variance
+    cols_to_drop = ['koi_impact', 'log_energy_consistency', 'koi_kepmag', 
                     'log_energy_consistency_total_err_ratio']
     kepler_final = kepler_final.drop(columns=cols_to_drop, errors='ignore')
-    return kepler_final
+
+    # Encoding koi_disposition 0 False Positive, 1 Confirmed
+    mapping = {'CONFIRMED': 1, 'FALSE POSITIVE': 0}
+    # Creating a 'Production' Dataframe w/o a koi_disposition
+    koi_blind = kepler_final[kepler_final['koi_disposition'] == 'CANDIDATE'].copy()
+    koi_blind = koi_blind.drop(columns=['koi_disposition'], errors='ignore')
+    # Now Creating Splitting & Trannsforming Ready Dataframe
+    known_dispositions = ['CONFIRMED', 'FALSE POSITIVE']
+    koi_model_data = kepler_final[kepler_final['koi_disposition'].isin(known_dispositions)].copy()
+    koi_model_data['target'] = koi_model_data['koi_disposition'].map(mapping)
+    koi_model_data = koi_model_data.drop(columns=['koi_disposition'])
+    return koi_model_data, koi_blind
 
