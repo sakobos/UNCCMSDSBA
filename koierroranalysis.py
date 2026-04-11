@@ -54,15 +54,18 @@ def koi_error_analysis(pipeline, X_test, y_test, robo_error_id='K00242.01', n_cl
     sil_score = silhouette_score(X_errors, clusters)
     print(f"Silhouette Score: {sil_score:.4f}")
 
-    # 4. TSNE to Visualize the Clusters
+    # 4. TSNE to Visualize the Clusters 
     tsne = TSNE(n_components=2, perplexity=min(30, len(X_errors)-1), random_state=42)
     X_embedded = tsne.fit_transform(X_errors)
     plt.figure(figsize=(10, 7))
-    sns.scatterplot(x=X_embedded[:, 0], y=X_embedded[:, 1],
-                    hue=clusters, palette='viridis', s=100, style=clusters)
-    plt.title(f"TSNE RF Errors")
+    my_palette = sns.color_palette('bright', 6)
+    sns.scatterplot(x=X_embedded[:, 0], y=X_embedded[:, 1], hue=clusters, 
+                    palette=my_palette, s=120, alpha=0.8, edgecolor='b')
+    plt.title(f"TSNE Clusters of Model Errors)", fontsize=14)
+    plt.xlabel("TSNE Component 1", fontsize=11)
+    plt.ylabel("TSNE Component 2", fontsize=11)
     plt.legend(title="Cluster", bbox_to_anchor=(1.05, 1), loc='upper left')
+    sns.despine()
     plt.show()
-
     return pd.DataFrame({'Cluster': clusters, 'Similarity_to_Robovetter': similarities}, index=error_indices)
 
