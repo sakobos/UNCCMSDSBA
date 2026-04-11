@@ -9,6 +9,7 @@ Original file is located at
 
 import pandas as pd
 
+def run_final_cleaning(df):
     kepler_final = df.copy()
     # Columns to Drop from Multicollinearity/VIF & Low Variance
     cols_to_drop = ['koi_impact', 'log_energy_consistency', 'koi_kepmag', 
