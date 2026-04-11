@@ -22,14 +22,14 @@ def splitter(df, target_kepoi='K00242.01'):
     remaining_data = df[df.index != target_kepoi]
 
     # normal TTS w/ 90% Train/10% Test (more train due to small sample)
-    X_rem = remaining_data.drop(columns=['target', 'kepoi_name'])
+    X_rem = remaining_data.drop(columns=['target'])
     y_rem = remaining_data['target']
     X_train, X_test, y_train, y_test = train_test_split(X_rem, y_rem,
                                                         test_size=0.10,
                                                         random_state=42,
                                                         stratify=y_rem)
     # Join the Robovetter Error to Test Sets
-    X_robo = target_obs.drop(columns=['target', 'kepoi_name'])
+    X_robo = target_obs.drop(columns=['target'])
     y_robo = target_obs['target']
     X_test_pre = pd.concat([X_test, X_robo])
     y_test_final = pd.concat([y_test, y_robo])
