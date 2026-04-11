@@ -18,8 +18,8 @@ from sklearn.model_selection import train_test_split
 
 def splitter(df, target_kepoi='K00242.01'):
     # Removing Robovetter Error
-    target_obs = df[df['kepoi_name'] == target_kepoi]
-    remaining_data = df[df['kepoi_name'] != target_kepoi]
+    target_obs = df[df.index == target_kepoi]
+    remaining_data = df[df.index != target_kepoi]
 
     # normal TTS w/ 90% Train/10% Test (more train due to small sample)
     X_rem = remaining_data.drop(columns=['target', 'kepoi_name'])
