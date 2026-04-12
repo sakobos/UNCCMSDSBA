@@ -32,6 +32,27 @@ def kepler_pipeline(X_train, y_train):
                               ('rf', RandomForestClassifier(max_depth=None,
                                min_samples_leaf=2, n_estimators=200,
                                random_state=42, n_jobs=-1))])
+    
+    print("Repeated Stratified K-Fold Cross Validation:")
+    rskf = RepeatedStratifiedKFold(n_splits=10, n_repeats=5, random_state=42)
+    scoring_metrics = ['accuracy', 'precision', 'recall']
+    
+    cv_results = cross_validate(pipeline, X_train, y_train, cv=rskf, scoring=scoring_metrics, n_jobs=-1)
+    
+    print(f"CV Mean Accuracy:  {np.mean(cv_results['test_accuracy']):7.2%}")
+    print(f"CV Mean Precision: {np.mean(cv_results['test_precision']):7.2%}")
+    print(f"CV Mean Recall:    {np.mean(cv_results['test_recall']):7.2%}")
+
+    # 4. Final Training Fit
     pipeline.fit(X_train, y_train)
+    y_train_pred = pipeline.predict(X_train)
+    train_acc = accuracy_score(y_train, y_train_pred)
+    train_prec = precision_score(y_train, y_train_pred)
+    train_rec = recall_score(y_train, y_train_pred)
+
+    print("Final Training Set Performance:")
+    print(f"Training Accuracy:    {train_acc:7.2%}")
+    print(f"Training Precision:   {train_prec:7.2%}")
+    print(f"Training Recall:      {train_rec:7.2%}")
     return pipeline
 
