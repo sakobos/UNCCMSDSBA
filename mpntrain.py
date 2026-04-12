@@ -45,7 +45,9 @@ def kepler_pipeline(X_train, y_train):
     print(f"CV Mean Accuracy:  {np.mean(cv_results['test_accuracy']):7.2%}")
     print(f"CV Mean Precision: {np.mean(cv_results['test_precision']):7.2%}")
     print(f"CV Mean Recall:    {np.mean(cv_results['test_recall']):7.2%}")
-    print(f"CV Std Dev: {np.std(cv_results):.4f}")
+    print(f"CV Accuracy Std Dev: {np.std(cv_results['test_accuracy']):.4f}")
+    print(f"CV Precision Std Dev: {np.std(cv_results['test_precision']):.4f}")
+    print(f"CV Recall Std Dev: {np.std(cv_results['test_recall']):.4f}")
 
     # 4. Final Training Fit
     pipeline.fit(X_train, y_train)
