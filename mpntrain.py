@@ -32,7 +32,7 @@ def kepler_pipeline(X_train, y_train):
     # Pipeline w/ YJ Transform, Stsandard Scaler, & Best RF Parameters
     pipeline = Pipeline(steps=[('preprocessor', preprocessor),
                               ('scaler', StandardScaler()),
-                              ('rf', RandomForestClassifier(max_depth=None,
+                              ('rf', RandomForestClassifier(max_depth=10,
                                min_samples_leaf=2, n_estimators=200,
                                random_state=42, n_jobs=-1))])
     
