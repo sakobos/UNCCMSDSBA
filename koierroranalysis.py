@@ -32,6 +32,26 @@ def koi_error_analysis(pipeline, X_test, y_test, robo_error_id='K00242.01', n_cl
         print("No errors found to analyze!")
         return
 
+    # SHAP Waterfall for Matching Robovetter & RF Error 
+    if robo_error_id in X_test.index:
+        # 1. Isolate the specific observation and convert to DataFrame for feature names
+        robo_loc = np.where(X_test.index == robo_error_id)[0][0]
+        X_robo_transformed = X_transformed[robo_loc].reshape(1, -1)
+        # Assuming the preprocessor step provides the feature names
+        feature_names = pipeline.named_steps['preprocessor'].get_feature_names_out()
+        X_robo_df = pd.DataFrame(X_robo_transformed, columns=feature_names)
+
+        # 2. Generate SHAP values
+        model = pipeline.named_steps['rf']
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer(X_robo_df)
+
+        # 3. Plot (Index 1 usually represents the 'Candidate' class)
+        plt.figure(figsize=(10, 6))
+        plt.title(f"SHAP Waterfall for {robo_error_id}")
+        shap.plots.waterfall(shap_values[0, :, 1])
+        plt.show()
+        
     # Similarity Check (>= 0.75)
     if robo_error_id in X_test.index:
         robo_idx = np.where(X_test.index == robo_error_id)[0][0]
