@@ -19,6 +19,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.manifold import TSNE
+import shap
 
 def koi_error_analysis(pipeline, X_test, y_test, robo_error_id='K00242.01', n_clusters=6):
     # Get Incorrect Predictions from RF
