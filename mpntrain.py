@@ -13,7 +13,7 @@ import pandas as pd
 import numpy as np
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import PowerTransformer, StandardScaler, RobustScaler
+from sklearn.preprocessing import PowerTransformer, StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_validate
 from sklearn.metrics import accuracy_score, precision_score, recall_score
@@ -31,7 +31,7 @@ def kepler_pipeline(X_train, y_train):
 
     # Pipeline w/ YJ Transform, Stsandard Scaler, & Best RF Parameters
     pipeline = Pipeline(steps=[('preprocessor', preprocessor),
-                              ('scaler', RobustScaler()),
+                              ('scaler', StandardScaler()),
                               ('rf', RandomForestClassifier(max_depth=10,
                                min_samples_leaf=2, n_estimators=200,
                                random_state=42, n_jobs=-1))])
