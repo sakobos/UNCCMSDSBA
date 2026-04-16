@@ -21,7 +21,7 @@ from sklearn.metrics import silhouette_score
 from sklearn.manifold import TSNE
 import shap
 
-def koi_error_analysis(pipeline, X_test, y_test, robo_error_id='K00242.01', n_clusters=6):
+def koi_error_analysis(pipeline, X_test, y_test, robo_error_id='K00242.01', n_clusters=3):
     # Get Incorrect Predictions from RF
     X_transformed = pipeline.named_steps['preprocessor'].transform(X_test)
     X_transformed = pipeline.named_steps['scaler'].transform(X_transformed)
