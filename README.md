@@ -2,6 +2,20 @@ Welcome to my repository.\
 Housed in this repository is the code that has been modularized for my DSBA 6156 Applied Machine Learning Final Project.\
 Classification of Exoplanets from their Astrophysical features, such as orbital period, object radius, as well as photometric measurements such as transit depth. 
 
+Python File Order: <br/>
+Sandbox: to see the entire model dewvelopment process start to finish <br/>
+KOI Main: for final modularized code and output <br/>
+datainc <br/>
+featureengineering <br/>
+finaledanclean <br/>
+datasplitter <br/>
+mpntrain <br/>
+modelevalnexp <br/>
+roboeval <br/>
+koierroranalysis <br/>
+
+
+
 The following links contain the Google Colab Files that were submitted for grading:\
 Presentation/Pitch Deck:<br/>
 https://docs.google.com/presentation/d/1QwoP9_o7wFipUQJXJd4-WJ1qq_R8OX89l0lwKTeabKg/edit?slide=id.p1#slide=id.p1 \
