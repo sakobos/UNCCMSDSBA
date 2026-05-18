@@ -875,14 +875,3 @@ plt.ylabel('t-SNE Dimension 2')
 plt.legend(title='Cluster', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(True, linestyle=':', alpha=0.4)
 plt.show();
-
-"""#### I made an alarming error. The Robovetter is far better than I realized.
-#### A 0.04% FPR, not almost 50% as I somehow originally thought.
-#### Best Model, RF FPR = 3.55%
-####Can reframe the project to see:
-#### Can ML find correctly Identify the False Positive that the Robovetter didn't?
-#### Could turn into a dual-use scenario where Robovetter is run, then ML is run and if Robovetter says Planet but ML says False Positive, then it is a False Positive (RV first because it performs way better, if we went both at the same time, ML could flag false positive but Robovetter says planet, we should trust robovetter).  
-
-
-#### **Unfortuntely, the ML solution was also unable to correctly identify the Robovetters error in K00242.01, meaning that the likely, two-state solution would not be beneficial as it stands now. It could be that this particular observation is a very rare "star in disguise", but confirming those suspicions would be reliant on acquiring more data of manually validated objects of interest to evaluate. No need to create the trial production run since our ML solution neither outperforms nor, as far as we can test, can provide predictive assistnace to the Robovetter**
-"""
